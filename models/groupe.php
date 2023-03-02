@@ -4,7 +4,7 @@
         private int $id_groupe;
         private string $nom_groupe;
 
-        public function __construc(int $id_groupe, string $nom_groupe){
+        public function __construct(int $id_groupe, string $nom_groupe){
             $this->id_groupe = $id_groupe;
             $this->nom_groupe = $nom_groupe;
         }
