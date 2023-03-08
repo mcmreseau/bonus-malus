@@ -26,6 +26,7 @@
         public function addProf(array $tab){
             $stmt = $this->con->prepare("insert into Professeur(nom_prof,prenom_prof,mail) values
                                         (:a,:b,:c)");
+                                        //pas besoin de l'id
             $res = $stmt->execute([":a"=>$tab[0],":b"=>$tab[1],":c"=>$tab[2]]);
             return $res;
         }
