@@ -30,4 +30,9 @@
             $res = $stmt->execute([":a"=>$tab[0],":b"=>$tab[1],":c"=>$tab[2]]);
             return $res;
         }
+
+        public function finfAll(){
+            $res = $this->con->query("select * from Professeur");
+            return $res->fetchAll();
+        }
     }

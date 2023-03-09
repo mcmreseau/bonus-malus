@@ -18,4 +18,19 @@
             $stmt->bindParam(":id",$id_mat);
             return $stmt->execute();
         }
+        /**
+         * @param array $name
+         */
+        public function addMat(array $tab){
+            $req = "insert into Matiere(id_matiere,intitule)values 
+                                        (:a,:b)";
+            $stmt = $this->con->prepare($req);
+            $res = $stmt->execute([":a"=>$tab[0],":b"=>$tab[1]]);
+            return $res;
+        }
+        
+        public function finfAll(){
+            $res = $this->con->query("select * from Matiere");
+            return $res->fetchAll();
+        }
     }
