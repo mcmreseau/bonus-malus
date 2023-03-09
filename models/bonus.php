@@ -1,13 +1,3 @@
-CREATE TABLE Bonus (
-id_bonus INTEGER AUTO_INCREMENT,
-note float not null,
-date_seance Datetime ,
-id_etudiant integer NOT NULL REFERENCES Etudiant(id_etudiant),
-id_seance INTEGER NOT NULL REFERENCES Seance(id_seance),
-
-constraint PK_ID primary key (id_bonus)
-);
-
 <?php 
     
     class Bonus{
