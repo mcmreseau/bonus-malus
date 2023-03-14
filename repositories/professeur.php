@@ -1,5 +1,5 @@
 <?php 
-    include_once("./db/connect.php");
+    include_once("../db/connect.php");
     class Professeur {
         private $con;
 
@@ -11,6 +11,13 @@
             $req = "select * from Professeur where id_prof=?";
             $stmt = $this->con->prepare($req);
             $res = $stmt->execute(array($id_prof));
+            return $stmt->fetch();
+        }
+
+        public function findByMail(string $mail) {         
+            $req = "select * from Professeur where mail=?";
+            $stmt = $this->con->prepare($req);
+            $res = $stmt->execute(array($mail));
             return $stmt->fetch();
         }
 
