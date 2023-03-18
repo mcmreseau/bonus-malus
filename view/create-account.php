@@ -1,3 +1,44 @@
+<?php
+
+  include('../repositories/identifiant.php');
+
+    session_start();
+    $error = "";
+
+    if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['role'])) {
+
+      $email = htmlspecialchars($_POST['email']);
+      $password = htmlspecialchars($_POST['password']);
+      $role = $_POST['role'];
+
+      //Vérification si l'utilisateur existe déjà
+
+      $identifiant = new Identifiant();
+      $check = $identifiant -> findByMail($email);
+      $row = $check->rowcount();
+
+      $email = strtolower($email); //pour éviter de différencier les majuscules et les minuscules 
+
+      if($row == 0) {
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+          $password = password_hash($password, PASSWORD_BCRYPT);
+
+          //Insersion dans la base de données
+          $tab = [];
+          $insert = new Identifiant();
+          $new = $insert->addId($tab);
+          
+          //Redirection avec le message de succès
+          header('Location:login.php?error = success');
+        }else{
+          header('Location:login.php?error = success');
+        }
+      }else{
+        header('Location:create-account.php?error = already');
+      }
+    }
+?>
+
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
@@ -13,6 +54,8 @@
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
     ></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="assets/js/init-alpine.js"></script>
   </head>
   <body>
@@ -42,11 +85,37 @@
               >
                 Create account
               </h1>
+
+              <?php
+                if(isset($_GET['error'])){
+                  $err = htmlspecialchars($_GET['error']);
+                    switch($err){
+                      case 'success':
+              ?>
+                <div class="alert alert-success">
+                     <strong>Succès</strong> inscription réussie !
+                 </div
+              <?php
+                break;
+                case 'already':
+              ?>
+                <div class = "alert alert-danger">
+                  <strong>Erreur</strong>Compte déjà existant
+                </div>
+              <?php
+                    }
+                  }
+              ?>
+
+          <form action = "create-account.php" method = "POST" >
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Email</span>
                 <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="Jane Doe"
+                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 
+                  focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray 
+                  form-input"
+                  type = "text"
+                  placeholder="email@3il.fr"
                 />
               </label>
               <label class="block mt-4 text-sm">
@@ -57,14 +126,14 @@
                   type="password"
                 />
               </label>
-              <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">
-                  Confirm password
-                </span>
+              <label class="block text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Rôle</span>
                 <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="***************"
-                  type="password"
+                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 
+                  focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray 
+                  form-input"
+                  type = "text"
+                  placeholder="Etudiant ou Professeur ?"
                 />
               </label>
 
@@ -84,11 +153,11 @@
               <!-- You should use a button here, as the anchor is only used for the example  -->
               <a
                 class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                href="./login.php"
+                href="#"
               >
                 Create account
               </a>
-
+  </form>
               <hr class="my-8" />
 
               <button

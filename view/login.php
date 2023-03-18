@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
@@ -14,6 +17,8 @@
       defer
     ></script>
     <script src="assets/js/init-alpine.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class = "login-form">
@@ -44,11 +49,43 @@
               >
                 Connectez-vous
               </h1>
-              <form action = "ouvertureSession.php" method="post">
-                <?php 
-                if (isset($_GET['error'])) { ?>
-                <p class = "error" ><?php echo $_GET['error']; ?></p>
-                <?php } ?>
+
+            <?php 
+
+            if(isset($_GET['erreur'])) {
+              $err = htmlspecialchars($_GET['erreur']);
+              switch($erreur) {
+                case 'password':
+            ?>
+            <div class = "alert alert-danger">
+              <strong>Erreur</strong> Mot de passe incorrect
+          </div>
+
+          <?php
+            break;
+               case 'email':
+          ?>
+
+          <div class = "alert alert-danger">
+              <strong>Erreur</strong>Email incorrect
+          </div>
+
+          <?php
+          break;
+          case 'already':
+          ?>
+              <div>
+                <strong>Erreur</strong> Compte non existant
+              </div>
+          
+          <?php
+            break;
+              }
+            }
+        ?>
+
+              <form action = "accueil.php" method="POST">
+            
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Email</span>
                 <input
@@ -56,7 +93,7 @@
                   focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray 
                   form-input form-control "
                   placeholder="email@3il.fr" 
-                  type = "email" 
+                  type = "text" 
                   name = "email" 
                   required = "required" 
                   autocomplete="off"
@@ -81,7 +118,7 @@
                 class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors
                  duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700
                   focus:outline-none focus:shadow-outline-purple" type = "submit"
-                href="acceuil.php"
+                href="#" 
               >
                 Connexion
               </a>

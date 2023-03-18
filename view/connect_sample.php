@@ -8,6 +8,7 @@
             include_once("../repositories/identifiant.php");
             $ident = new Identifiant();
             $user = $ident->findByMail($log);
+            
             if($user==null){
                 $err = "mail introuvable";
             }
