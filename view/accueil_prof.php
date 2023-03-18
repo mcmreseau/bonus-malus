@@ -1,6 +1,6 @@
 <?php 
   if(empty($_SESSION["user"])){
-    header("location:login.php");
+    header("location:connect_sample.php");
   }
 
   include_once("../repositories/professeur.php");
