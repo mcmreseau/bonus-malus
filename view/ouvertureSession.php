@@ -17,15 +17,17 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
 
         if (empty($email)) {
                 header('Location : login.php?error = Email is required');
-                //exit();
+
         }else if(empty($password)){
                 header('Location : login.php?error = Password is required');
-                //exit();
+             
         }
+
         //On regarde si l'utilisateur est inscrit dans la base de données
 
-        $check = $identifiant->findByMail($email);
-        $row = $check -> rowcount();
+        $identifiant = new Identifiant();
+        $user = $identifiant->findByMail($email);
+        $row = $user -> rowcount();
 
         // si >0 alors l'utilisateur existe
 
@@ -35,25 +37,24 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
                         //si le mdp est bon 
                         if(password_verify($password, $data['password'])) {
                                 //On crée la session et on dirige sur acceuil.php
-                                $_SESSION['user'] = $data['token'];
-                                header('Location : acceuilProf.php');
-                               // die();
+                               // $_SESSION['user'] = $data['token'];
+                                $user["password"] = "";
+                                $_SESSION["role"] = $user["role_id"];
+                                $_SESSION["user"] = $user;
+                                $err="connexion réussie";
+                                header('Location : acceuil.php');
                         }else{
-                                header('Location : acceuilProf.php ? login_err = password');
-                                //die(); 
+                                header('Location : acceuil.php ? login_err = password');
                         } 
                 } else {
-                                header('Location : acceuilProf.php ? login_err = email');
-                                //die();
+                                header('Location : acceuil.php ? login_err = email');
                         }
                 } else {
-                                header('Location : acceuilProf.php?login_err = already');
-                                //die();
+                                header('Location : acceuil.php?login_err = already');
                          }
         } 
         else { //Si le formulaire est renvoyé sans aucune données
-                        header('Location : acceuilProf.php');
-                        //die();
+                        header('Location : login.php');
                 } 
 
 ?>

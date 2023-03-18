@@ -1,7 +1,7 @@
 <?php 
   session_start();
   if(empty($_SESSION["user"])){
-    header("location:connect.php");
+    header("location:login.php");
   }
   if($_SESSION["role"]=="etudiant"){
     require_once("accueil_etudiant.php");
