@@ -19,7 +19,7 @@
 
         public function deleteById(int $id_groupe){
             $stmt = $this->con->prepare("delete from Matiere where id_matiere=:id");
-            $stmt->bindParam(":id",$id_mat);
+            $stmt->bindParam(":id",$id_groupe);
             return $stmt->execute();
         }
 
