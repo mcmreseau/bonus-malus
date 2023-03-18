@@ -45,10 +45,7 @@
                 Connectez-vous
               </h1>
               <form action = "ouvertureSession.php" method="post">
-                <?php 
-                if (isset($_GET['error'])) { ?>
-                <p class = "error" ><?php echo $_GET['error']; ?></p>
-                <?php } ?>
+            
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Email</span>
                 <input
@@ -81,7 +78,7 @@
                 class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors
                  duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700
                   focus:outline-none focus:shadow-outline-purple" type = "submit"
-                href="acceuil.php"
+                href="#" 
               >
                 Connexion
               </a>

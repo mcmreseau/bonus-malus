@@ -5,7 +5,8 @@
          //Rôle 3 = Etudiant
 
 session_start(); //Demarrage de la session
-include('./db/connect.php') ; //Connexion à la bd
+include('../db/connect.php') ;
+include('../repositories/identifiant.php'); // Récupération des fonction de gestion de la base de données
 
 if(!empty($_POST['email']) && !empty($_POST['password'])) {
 
@@ -15,20 +16,16 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
         $email = strtolower($email); //email transformé en miniscule
 
         if (empty($email)) {
-                header('Location : acceuil.php?error = Email is required');
-                exit();
+                header('Location : login.php?error = Email is required');
+                //exit();
         }else if(empty($password)){
-                header('Location : acceuil.php?error = Password is required');
-                exit();
+                header('Location : login.php?error = Password is required');
+                //exit();
         }
         //On regarde si l'utilisateur est inscrit dans la base de données
 
-        $check = $bdd -> prepare('SELECT * FROM identifiant WHERE mail = ?');
-        $check -> execute(array($email));
-        $data = $check -> fetch();
+        $check = $identifiant->findByMail($email);
         $row = $check -> rowcount();
-
-        
 
         // si >0 alors l'utilisateur existe
 
@@ -39,22 +36,24 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
                         if(password_verify($password, $data['password'])) {
                                 //On crée la session et on dirige sur acceuil.php
                                 $_SESSION['user'] = $data['token'];
-                                header('Location : ./view/acceuil.php');
-                                die();
+                                header('Location : acceuilProf.php');
+                               // die();
                         }else{
-                                header('Location : ./view/acceuil.php ? login_err = password');
-                                die(); 
+                                header('Location : acceuilProf.php ? login_err = password');
+                                //die(); 
                         } 
                 } else {
-                                header('Location : ./view/acceuil.php ? login_err = email');
-                                die();
+                                header('Location : acceuilProf.php ? login_err = email');
+                                //die();
                         }
                 } else {
-                                header('Location : ./view/acceuil.php?login_err = already');
-                                die();
+                                header('Location : acceuilProf.php?login_err = already');
+                                //die();
                          }
-                } else { //Si le formulaire est renvoyé sans aucune données
-                        header('Location : ./view/acceuil.php');
-                        die();
+        } 
+        else { //Si le formulaire est renvoyé sans aucune données
+                        header('Location : acceuilProf.php');
+                        //die();
                 } 
+
 ?>
