@@ -44,7 +44,7 @@
         <div class="row"> 
             <div class="col-md-6"> 
                 <div class="card"> 
-                    <form class="box" method="POST" action="connect.php"> <h1>Login</h1> 
+                    <form class="box" method="POST" action="connect_sample.php"> <h1>Login</h1> 
                     <p class="text-muted"> <?= $err ?> </p>
                      <input type="text" name="login" placeholder="Username"> 
                      <input type="password" name="password" placeholder="Password"> 
