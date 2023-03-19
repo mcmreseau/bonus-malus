@@ -38,6 +38,5 @@
         $res=$stmt->execute();
         return $res;
     }
-
         
     }

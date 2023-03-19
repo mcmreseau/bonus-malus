@@ -17,7 +17,8 @@
                 $err = "mail introuvable";
             }
             else{
-                if(password_verify($pass,$user["mdp"])){
+                // if(password_verify($pass,$user["mdp"])){
+                if($user["mdp"] === $pass){
                     $user["mdp"] = "";
                     $_SESSION["role"] = $user["role_id"];
                     $_SESSION["user"] = $user;

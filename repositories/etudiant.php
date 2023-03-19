@@ -37,6 +37,13 @@
             $stmt = $this->con->prepare($req);
             $res = $stmt->execute([":id"=>$id_etud]);
             return $stmt->fetch();
+    
+        }
+        public function findAll() {
+            $req = "SELECT * FROM etudiant INNER JOIN groupe ON etudiant.id_groupe = groupe.id_groupe";
+            $stmt = $this->con->prepare($req);
+            $stmt->execute();
+            return $stmt->fetchAll();
         }
 
         public function findEtudBonus($id_etud){
