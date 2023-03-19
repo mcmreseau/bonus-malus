@@ -29,8 +29,7 @@
             //si on veut supprimer un identifiant on vérifie que ça n'appartient à aucun user ou?
         }
     public function addId($tab){
-        $req = "insert into Identifiant(mail,pwd,role_id)
-                values (:a,:b:c)";
+        $req = "insert into Identifiant(mail,mdp,role_id) values (:a,:b,:c)";
         $stmt = $this->con->prepare($req);
         $stmt->bindParam(":a",$tab[0]);
         $pass = password_hash($tab[1],PASSWORD_DEFAULT);
