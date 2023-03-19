@@ -1,10 +1,11 @@
 <?php 
-    // include_once("../db/connect.php");
+    include_once("../db/connect.php");
     include_once("etudiant.php");
      class matiere {
         private $con;
         function __construct(){
-            $this->con = new PDO("mysql:host=localhost;dbname=base_test","root","root");
+            //$this->con = new PDO("mysql:host=localhost;dbname=base_test","root","root");
+            $this->con = connexion();
         }
 
         public function findById($id_mat) {         

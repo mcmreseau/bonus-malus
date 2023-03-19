@@ -1,10 +1,11 @@
 <?php
-    // include_once("../db/connect.php");   
+     include_once("../db/connect.php");   
     class Etudiant {
         
         private $con;
         function __construct(){
-            $this->con = new PDO("mysql:host=localhost;dbname=base_test","root","root");
+            $this->con = connexion();
+            //$this->con = new PDO("mysql:host=localhost;dbname=base_test","root","root");
         }
 
         public function findEtudiant(int $id_seance){
