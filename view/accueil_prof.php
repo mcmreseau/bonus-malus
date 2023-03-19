@@ -54,7 +54,7 @@
                   d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
                 </path>
               </svg>
-                <span class="ml-4">Seances précédente</span>
+                <span class="ml-4">Seances précédentes</span>
               </span>
               <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
@@ -77,7 +77,7 @@
                   foreach($seance as $it){
                     ?>
                       <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full seance"><?=$it["nom_seance"] ?></a>
+                        <a class="w-full seance_pre"><?=$it["nom_seance"] ?></a>
                         <input type="hidden" value="<?=$it["id_seance"] ?>"/>
                       </li>
                     <?php
@@ -334,6 +334,44 @@
 
 
 <script >
+  $(".seance_pre").click(event=>{
+    var id_seance = $(event.target).parent().find("input").val()
+    //L'execution se fait apres que le script aie fini de charger
+    $.ajax({
+      type: "POST",
+      url: "etudiant_con.php",
+      data: "id_seance="+id_seance,
+      dataType:"JSON",
+      success: data => {
+        $('#cc').html("")
+        //console.log(data)
+        for(let etu of data){
+          
+          $('#cc').append(
+            //Modification des elements du tableau en jquery
+            `
+              <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="px-4 py-3 text-sm">
+                    ${etu.id_etudiant}
+                    </td>
+                    <td class="px-4 py-3">                       
+                          <p class="font-semibold">${etu.nom_etudiant}</p>
+                    </td>
+                    <td class="px-4 py-3 text-sm">
+                    <input class="note" type="text" value=${etu.note} />
+                    </td>
+                    <td class="px-4 py-3 text-xs">
+                    ${etu.nom_groupe}
+                    </td>
+                    
+              </tr>
+            `
+          )
+        }     
+      }
+    })   
+  })
+
   $(".seance").click(event=>{
     var id_seance = $(event.target).parent().find("input").val()
     //L'execution se fait apres que le script aie fini de charger
@@ -379,9 +417,6 @@
             url:"traiter_bonus.php",
             data: "id_s="+id_seance+"&id_etu="+id_etudiant+"&note="+note,
         })
-
-
-
       })
 </script>
 
