@@ -23,5 +23,12 @@
             return $stmt->execute();
         }
 
+        public function findAll() {
+            $req = "SELECT * FROM groupe";
+            $stmt = $this->con->prepare($req);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+
 
     }

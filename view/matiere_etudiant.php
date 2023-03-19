@@ -1,9 +1,9 @@
 <?php
 
 session_start();
-//   if(empty($_SESSION["user"])){
-//    header("location:login.php");
-//  }
+   if(empty($_SESSION["user"])){
+    header("location:login.php");
+ }
 
 include_once("../repositories/etudiant.php");
 include_once("../repositories/matiere.php");
@@ -12,9 +12,9 @@ $etudRepo = new Etudiant();
 $matiereRepo = new matiere();
 $bonus = $matiereRepo->findMatBonusForEtud($_GET["id_mat"], $_GET["id_etud"]);
 
-$mail = 'user1@example.com';
-$etudiant = $etudRepo->findByMail($mail);
-//$etudiant = $etudRepo->findByMail($_SESSION["user"]["mail"]);
+//$mail = 'user1@example.com';
+//$etudiant = $etudRepo->findByMail($mail);
+$etudiant = $etudRepo->findByMail($_SESSION["user"]["mail"]);
 
 ?>
 
