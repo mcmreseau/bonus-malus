@@ -5,7 +5,7 @@
          //Rôle 3 = Etudiant
 
 session_start(); //Demarrage de la session
-include('./db/connect.php') ; //Connexion à la bd
+include('../db/connect.php') ; //Connexion à la bd
 
 if(!empty($_POST['email']) && !empty($_POST['password'])) {
 

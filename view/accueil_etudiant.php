@@ -1,8 +1,15 @@
-<?php 
-  
-  if(empty($_SESSION["user"])){
-    header("location:connect.php");
-  }
+<?php
+//   if(empty($_SESSION["user"])){
+//    header("location:login.php");
+//  }
+
+include_once("../repositories/etudiant.php");
+$etudRepo = new Etudiant();
+$a = 1;
+$mail = 'user1@example.com';
+$etudiant = $etudRepo->findByMail($mail);
+//$etudiant = $etudRepo->findByMail($_SESSION["user"]["mail"]);
+
 ?>
 
 <!DOCTYPE html>
@@ -16,20 +23,16 @@
   <link rel="stylesheet" href="assets/css/tailwind.output.css" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   <script src="assets/js/init-alpine.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <script src="./assets/js/charts-lines.js" defer></script>
-  <script src="./assets/js/charts-pie.js" defer></script>
 </head>
 
 <body>
   <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+      <?php echo "<p style='color:white;'>qsd</p>"?>
+      <?php echo "<p style='color:white;'>qsd</p>"?>
+      <?php echo "<p style='color:white;'>qsd</p>"?>
       <div class="py-4 text-gray-500 dark:text-gray-400">
-        <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-          Windmill
-        </a>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
@@ -47,7 +50,7 @@
           </li>
         </ul>
         <ul>
-          <li class="relative px-6 py-3">
+          <!--<li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               href="#">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -58,50 +61,7 @@
               </svg>
               <span class="ml-4">Seances précedentes</span>
             </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <button
-              class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              @click="togglePagesMenu" aria-haspopup="true">
-              <span class="inline-flex items-center">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                </path>
-              </svg>
-                <span class="ml-4">Seances à suivre</span>
-              </span>
-              <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </button>
-            <template x-if="togglePagesMenu">
-              <ul x-transition:enter="transition-all ease-in-out duration-300"
-                x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
-                x-transition:leave="transition-all ease-in-out duration-300"
-                x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
-                aria-label="submenu">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/login.html">Seance 1</a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/create-account.html">
-                    Seance 2
-                  </a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/forgot-password.html">
-                    Seance 3
-                  </a>
-                </li>
-
-              </ul>
-            </template>
-          </li>
+          </li>-->
           <li class="relative px-6 py-3">
             <button
               class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -128,19 +88,24 @@
                 x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
                 class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                 aria-label="submenu">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/login.html">Login</a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/create-account.html">
-                    I1
-                  </a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/forgot-password.html">
-                    I2
-                  </a>
-                </li>
+
+                <?php
+                include_once("../repositories/matiere.php");
+                #Recuperation de la liste des matières
+                $matiereRepo = new matiere();
+                $matiere = $matiereRepo->findMatiere($etudiant["id_etudiant"]);
+                foreach ($matiere as $it) {
+
+                  ?>
+                  <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                    <a class="w-full seance">
+                      <?= $it["intitule"] ?>
+                    </a>
+                    <input type="hidden" value=<?= $it["id_matiere"] ?> />
+                  </li>
+                  <?php
+                }
+                ?>
 
               </ul>
             </template>
@@ -193,78 +158,16 @@
             </div>
           </div>
           <ul class="flex items-center flex-shrink-0 space-x-6">
-            <!-- Theme toggler -->
-            <li class="flex">
-              <button class="rounded-md focus:outline-none focus:shadow-outline-purple" @click="toggleTheme"
-                aria-label="Toggle color mode">
-                <template x-if="!dark">
-                  <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                  </svg>
-                </template>
-                <template x-if="dark">
-                  <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                </template>
-              </button>
-            </li>
-            <!-- Notifications menu -->
-            <li class="relative">
-              <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
-                @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications"
-                aria-haspopup="true">
-                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                  </path>
-                </svg>
-                <!-- Notification badge -->
-                <span aria-hidden="true"
-                  class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"></span>
-              </button>
-              <template x-if="isNotificationsMenuOpen">
-                <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                  x-transition:leave-end="opacity-0" @click.away="closeNotificationsMenu"
-                  @keydown.escape="closeNotificationsMenu"
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700">
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#">
-                      <span>Messages</span>
-                      <span
-                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                        13
-                      </span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#">
-                      <span>Sales</span>
-                      <span
-                        class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                        2
-                      </span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#">
-                      <span>Alerts</span>
-                    </a>
-                  </li>
-                </ul>
-              </template>
-            </li>
             <!-- Profile menu -->
+            <li class="relative">
+              <?= $etudiant["nom_etudiant"] ?>
+            </li>
+            
             <li class="relative">
               <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                 @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account" aria-haspopup="true">
                 <img class="object-cover w-8 h-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                  src="https://moodle.3il.fr/theme/image.php/adaptable/core/1675016996/u/f1"
                   alt="" aria-hidden="true" />
               </button>
               <template x-if="isProfileMenuOpen">
@@ -310,6 +213,7 @@
                 </ul>
               </template>
             </li>
+                
           </ul>
         </div>
       </header>
@@ -320,6 +224,8 @@
           </h2>
 
 
+
+
           <!-- New Table -->
           <div class="w-full overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto">
@@ -327,180 +233,48 @@
                 <thead>
                   <tr
                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3">Name</th>
-                    <th class="px-4 py-3">Score</th>
-                    <th class="px-4 py-3">Class</th>
-                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">Matières</th>
+                    <th class="px-4 py-3">Bonus</th>
+                    <th class="px-4 py-3">Date à jour</th>
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                   <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Hans Burger</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +1
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                      I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
 
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&facepad=3&fit=facearea&s=707b9c33066bf8808c934c8ab394dff6"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Jolina Angelie</p>
-                         
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +2
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                     I2
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
+                    <?php
+                    $bonus = $etudRepo->findEtudBonus($etudiant["id_etudiant"]);
+                    foreach ($bonus as $it) {
+                      ?>
+                    <tr class="text-gray-700 dark:text-gray-400">
+                      <td class="px-4 py-3">
+                        <div class="flex items-center text-sm">
+                          <div>
+                            <p class="font-semibold">
+                              <?= $it["intitule"] ?>
+                            </p>
 
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1551069613-1904dbdcda11?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                          </div>
                         </div>
-                        <div>
-                          <p class="font-semibold">Sarah Curry</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +2
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                      I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1551006917-3b4c078c47c9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Rulia Joberts</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                     +2
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                      I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Wenzel Dashington</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +1
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                      I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
-
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Hans Burger</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +1
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                     I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        <?= round($it["note"], 2) ?>
+                      </td>
+                      <td class="px-4 py-3 text-xs">
+                        <?= $it["date_seance"] ?>
+                      </td>
+                    </tr>
+                  <?php } ?>
                 </tbody>
               </table>
             </div>
+<!-- 
             <div
               class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
               <span class="flex items-center col-span-3">
                 Showing 21-30 of 100
               </span>
               <span class="col-span-2"></span>
-              <!-- Pagination -->
+              
               <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                 <nav aria-label="Table navigation">
                   <ul class="inline-flex items-center">
@@ -561,7 +335,9 @@
                   </ul>
                 </nav>
               </span>
+            
             </div>
+           -->
           </div>
 
         </div>

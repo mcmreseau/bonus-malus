@@ -11,7 +11,7 @@
         public function findByMail(string $mail) {         
             $req = "select * from Identifiant where mail=?";
             $stmt = $this->con->prepare($req);
-            $res = $stmt->execute(array($mail));
+            $stmt->execute(array($mail));
             return $stmt->fetch();
         }
 
