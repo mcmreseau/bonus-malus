@@ -22,4 +22,14 @@
             $req->execute();
             return $req->fetchAll();
         }
+
+        public function findAll() {
+            $req = "SELECT * FROM seance
+                    INNER JOIN groupe ON seance.id_groupe = groupe.id_groupe
+                    INNER JOIN matiere ON seance.id_matiere = matiere.id_matiere
+                    INNER JOIN professeur ON seance.id_prof = professeur.id_prof";
+            $stmt = $this->con->prepare($req);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
     }

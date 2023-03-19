@@ -15,4 +15,7 @@ include ("../repositories/etudiant.php");
     $prof=new Professeur();
     header('Location:accueil_prof.php');
   }
+  else if($_SESSION["role"]=="administrateur"){
+    header('Location:dashboard_admin.php');
+  }
 ?>

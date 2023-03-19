@@ -4,7 +4,7 @@
         
         private $con;
         function __construct(){
-            $this->con = new PDO("mysql:host=localhost;dbname=base_test","root","root");
+            $this->con = new PDO("mysql:host=localhost;dbname=base_test","root","");
         }
 
         public function findEtudiant(int $id_seance){
@@ -31,6 +31,13 @@
             $req = $this->con->prepare($stmt);
             $req->execute([":id"=>$id_seance]);
             return $req->fetchAll();
+        }
+
+        public function findAll() {
+            $req = "SELECT * FROM etudiant INNER JOIN groupe ON etudiant.id_groupe = groupe.id_groupe";
+            $stmt = $this->con->prepare($req);
+            $stmt->execute();
+            return $stmt->fetchAll();
         }
     }
 ?>

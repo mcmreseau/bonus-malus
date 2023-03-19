@@ -39,22 +39,22 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
                         if(password_verify($password, $data['password'])) {
                                 //On crée la session et on dirige sur acceuil.php
                                 $_SESSION['user'] = $data['token'];
-                                header('Location : ./view/acceuil.php');
+                                header('Location: ./view/acceuil.php');
                                 die();
                         }else{
-                                header('Location : ./view/acceuil.php ? login_err = password');
+                                header('Location: ./view/acceuil.php ? login_err = password');
                                 die(); 
                         } 
                 } else {
-                                header('Location : ./view/acceuil.php ? login_err = email');
+                                header('Location: ./view/acceuil.php ? login_err = email');
                                 die();
                         }
                 } else {
-                                header('Location : ./view/acceuil.php?login_err = already');
+                                header('Location: ./view/acceuil.php?login_err = already');
                                 die();
                          }
                 } else { //Si le formulaire est renvoyé sans aucune données
-                        header('Location : ./view/acceuil.php');
+                        header('Location: ./view/acceuil.php');
                         die();
                 } 
 ?>
