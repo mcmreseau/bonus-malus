@@ -53,7 +53,7 @@
             return $res->fetchAll();
         }
 
-        public function findMatBonusForEtud($id_mat, $id_etud){
+        public function findMatBonusForEtud($id_mat, $id_etud  ){
             $stmt  = "select bonus.id_etudiant,matiere.id_matiere, matiere.intitule, bonus.note, seance.date_seance from matiere left join seance on matiere.id_matiere = seance.id_matiere left join bonus on seance.id_seance = bonus.id_seance where matiere.id_matiere = :id_mat AND bonus.id_etudiant =:id_etud";
             // $stmt  = "select bonus.id_etudiant, matiere.intitule, SUM(bonus.note) as note , seance.date_seance from matiere left join seance on matiere.id_matiere = seance.id_matiere left join bonus on seance.id_seance = bonus.id_seance where bonus.id_etudiant = 3 group by matiere.id_matiere, matiere.intitule";
             // print_r($stmt);
