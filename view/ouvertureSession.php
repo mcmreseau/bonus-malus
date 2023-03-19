@@ -5,7 +5,7 @@
          //Rôle 3 = Etudiant
 
 session_start(); //Demarrage de la session
-//include('../db/connect.php') ;
+include('../db/connect.php') ;
 include('../repositories/identifiant.php'); // Récupération des fonctions de gestion de la base de données
 $erreur = "";
 
