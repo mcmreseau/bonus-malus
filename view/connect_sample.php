@@ -1,7 +1,11 @@
 <?php
+//limoges pour les etudiants
+//marrakech pour les profs
+//bangkok admin
     session_start();
     $err = "";
     if(isset($_POST["connex"])){
+        //echo password_hash("Bangkok",PASSWORD_DEFAULT);
         if(!empty($_POST["login"]) && !empty($_POST["password"])){
             $log = htmlspecialchars($_POST["login"]);
             $pass = htmlspecialchars($_POST["password"]);
