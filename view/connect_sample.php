@@ -1,13 +1,18 @@
 <?php
+//limoges pour les etudiants
+//marrakech pour les profs
+//bangkok admin
     session_start();
     $err = "";
     if(isset($_POST["connex"])){
+        //echo password_hash("Bangkok",PASSWORD_DEFAULT);
         if(!empty($_POST["login"]) && !empty($_POST["password"])){
             $log = htmlspecialchars($_POST["login"]);
             $pass = htmlspecialchars($_POST["password"]);
             include_once("../repositories/identifiant.php");
             $ident = new Identifiant();
             $user = $ident->findByMail($log);
+            
             if($user==null){
                 $err = "mail introuvable";
             }
@@ -44,7 +49,7 @@
         <div class="row"> 
             <div class="col-md-6"> 
                 <div class="card"> 
-                    <form class="box" method="POST" action="connect.php"> <h1>Login</h1> 
+                    <form class="box" method="POST" action="connect_sample.php"> <h1>Login</h1> 
                     <p class="text-muted"> <?= $err ?> </p>
                      <input type="text" name="login" placeholder="Username"> 
                      <input type="password" name="password" placeholder="Password"> 

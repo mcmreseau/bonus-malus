@@ -1,12 +1,18 @@
 <?php 
+
+include ("../repositories/professeur.php");
+include ("../repositories/etudiant.php");
+
   session_start();
   if(empty($_SESSION["user"])){
-    header("location:connect.php");
+    header("location:login.php");
   }
   if($_SESSION["role"]=="etudiant"){
-    require_once("accueil_etudiant.php");
+    $etudiant = new Etudiant();
+    header('Location:accueil_etudiant.php');
   }
   else if($_SESSION["role"]=="professeur"){
-    require_once("accueil_prof.php");
+    $prof=new Professeur();
+    header('Location:accueil_prof.php');
   }
 ?>
