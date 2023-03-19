@@ -41,7 +41,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
                          // $user["password"] = "";
                           $_SESSION["role"] = $check["role_id"];
                           $_SESSION["user"] = $check;
-                          $erreur = "connexion réussie";
+                          //$erreur="connexion réussie";
                           header('Location:accueil.php?erreur=connexion réussie');
                      }else{
                            header('Location:login.php?erreur=identifiant');

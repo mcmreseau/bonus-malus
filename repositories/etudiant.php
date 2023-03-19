@@ -55,6 +55,19 @@
             // $req->execute();
 
             return $req->fetchAll();
-        }}
+        }
 
+        public function addEtudiant(array $tab){
+            $req = "insert into Etudiant(nom_etudiant,mail,id_groupe) values
+                                        (:a,:b,:c)";
+                                        //pas besoin de l'id
+              $stmt = $this->con->prepare($req);
+                $stmt->bindParam(":a",$tab[0]);
+       // $pass = password_hash($tab[1],PASSWORD_DEFAULT);
+                $stmt->bindParam(":b",$tab[1]);
+                $stmt->bindParam(":c",$tab[2]);
+                $res=$stmt->execute();
+                     return $res;
+        }
+    }
 ?>

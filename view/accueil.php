@@ -1,18 +1,13 @@
 <?php 
 
-include ("../repositories/professeur.php");
-include ("../repositories/etudiant.php");
-
   session_start();
   if(empty($_SESSION["user"])){
     header("location:login.php");
   }
-  if($_SESSION["role"]=="professeur"){
-    $etudiant = new Etudiant();
+  if($_SESSION["role"]=="etudiant"){
     header('Location:accueil_etudiant.php');
   }
-  else if($_SESSION["role"]=="etudiant"){
-    $prof=new Professeur();
+  else if($_SESSION["role"]=="professeur"){
     header('Location:accueil_prof.php');
   }
   else if($_SESSION["role"]=="administrateur"){

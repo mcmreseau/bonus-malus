@@ -1,44 +1,111 @@
 <?php
   session_start();
   include('../repositories/identifiant.php');
-
+  include('../repositories/professeur.php');
+  include('../repositories/etudiant.php');
 
     $error = "";
 
-    if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['role'])) {
+    if(isset($_POST['etudiant'])){
+      echo 'oui';
+      if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['group']) && !empty($_POST['nom'])
+      && !empty($_POST['etudiant'])) {
 
-      $email = htmlspecialchars($_POST['email']);
-      $password = htmlspecialchars($_POST['password']);
-      $role = htmlspecialchars($_POST['role']);
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $groupe = htmlspecialchars($_POST['group']);
+        $nom  = htmlspecialchars($_POST['nom']);
+        $role = htmlspecialchars($_POST['etudiant']);
 
-      //Vérification si l'utilisateur existe déjà
+        //Vérification si l'utilisateur existe déjà
+  
+        $identifiant = new Identifiant();
+        $check = $identifiant -> findByMail($email);
+  
+        $email = strtolower($email); //pour éviter de différencier les majuscules et les minuscules 
+  
+        if($check == false) {
+          if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+  
+            //Insersion dans la table identifiant
+            $tabIdEtud=[];
+            $tabIdEtud[]=$email;
+            $tabIdEtud[]=$password;
+            $tabIdEtud[]=$role;
+  
+            $insertIdEtud = new Identifiant();
+            $newUserIdEtud = $insertIdEtud->addId($tabIdEtud);
 
-      $identifiant = new Identifiant();
-      $check = $identifiant -> findByMail($email);
-
-      $email = strtolower($email); //pour éviter de différencier les majuscules et les minuscules 
-
-      if($check == false) {
-        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-
-          //Insersion dans la base de données
-          $tab = [];
-          $tab[]=$email;
-          $tab[]=$password;
-          $tab[]=$role;
-
-          $insert = new Identifiant();
-          $newUser = $insert->addId($tab);
-          
-          //Redirection avec le message de succès
-          header('Location:login.php?error=success');
+            //Insersion dans la table etudiant
+            $tabEtud=[];
+            $tabEtud[]=$nom;
+            $tabEtud[]=$email;
+            $tabEtud[]=$groupe;
+  
+            $insertEtud = new Etudiant();
+            $newUserEtud = $insertEtud->addEtudiant($tabEtud);
+            
+            //Redirection avec le message de succès
+            header('Location:login.php?error=success');
+          }else{
+            header('Location:create-account.php?error=email');
+          }
         }else{
-          header('Location:create-account.php?error=email');
+          header('Location:create-account.php?error=already');
         }
-      }else{
-        header('Location:create-account.php?error=already');
       }
     }
+    
+    if(isset($_POST['professeur'])) {
+      echo 'non';
+      if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nom']) && !empty($_POST['prenom'])
+      && !empty($_POST['professeur'])) {
+
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $role = htmlspecialchars($_POST['professeur']);
+        $nom = htmlspecialchars($_POST['nom']);
+        $prenom = htmlspecialchars($_POST['prenom']);
+  
+        //Vérification si l'utilisateur existe déjà
+  
+        $identifiant = new Identifiant();
+        $check = $identifiant -> findByMail($email);
+  
+        $email = strtolower($email); //pour éviter de différencier les majuscules et les minuscules 
+  
+        if($check == false) {
+          if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+  
+            //Insertion dans la table Identifiant
+            $tabIdProf=[];
+            $tabIdProf[]=$email;
+            $tabIdProf[]=$password;
+            $tabIdProf[]=$role;
+  
+            $insertIdProf = new Identifiant();
+            $newUserIdProf = $insertIdProf->addId($tabIdProf);
+
+            //Insertion dans la table professeur
+            $tabProf=[];
+            $tabProf[]=$nom;
+            $tabProf[]=$prenom;
+            $tabProf[]=$email;
+  
+            $insertProf = new Professeur();
+            $newUserProf = $insertProf->addProf($tabProf);
+            
+            //Redirection avec le message de succès
+            header('Location:login.php?error=success');
+          }else{
+            header('Location:create-account.php?error=email');
+          }
+        }else{
+          header('Location:create-account.php?error=already');
+        }
+      }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +126,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="assets/js/init-alpine.js"></script>
+    <script src="jquery-3.6.4.min.js"></script>
   </head>
   <body>
     <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
@@ -117,7 +185,21 @@
               ?>
 
           <form action = "create-account.php" method = "POST" >
-              <label class="block text-sm">
+
+          <div class="form-check">
+  <input class="form-check-input" type="radio" name="professeur" value="professeur" onclick="desactiverChamp('groupe')">
+  <label class="form-check-label" for="flexRadioDefault1">
+    Professeur
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="etudiant" value="etudiant" onclick="desactiverChamp('prenom')">
+  <label class="form-check-label" for="flexRadioDefault2">
+    Etudiant
+  </label>
+</div>
+
+              <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Email</span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 
@@ -128,6 +210,38 @@
                   placeholder="email@3il.fr"
                 />
               </label>
+
+              <!-- <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Rôle</span>
+                <input
+                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 
+                  focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray 
+                  form-input"
+                  type = "text"
+                  name = "role"
+                  placeholder="Etudiant ou Professeur ?"
+                /> -->
+
+              <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Nom</span>
+                <input
+                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 
+                  focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray 
+                  form-input"
+                  name = "nom"
+                  type = "text"
+                  placeholder="fonkou"
+                />
+                <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Prénom</span>
+                <input
+                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                  name = "prenom"
+                  type = "text"
+                  id="prenom"
+                  placeholder="paola"
+                />
+
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Password</span>
                 <input
@@ -137,28 +251,18 @@
                   type="password"
                 />
               </label>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Rôle</span>
+              <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Groupe</span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 
                   focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray 
                   form-input"
                   type = "text"
-                  name = "role"
-                  placeholder="Etudiant ou Professeur ?"
+                  name = "group"
+                  id="groupe"
+                  placeholder="1,2,..."
                 />
               </label>
-
-            <div class="dropdown">
-               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 Rôle
-               </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button">etudiant</button>
-                         <button class="dropdown-item" type="button">professeur</button>
-                    </div>
-            </div>
- 
 
               <!-- You should use a button here, as the anchor is only used for the example  -->
               <button
@@ -183,5 +287,12 @@
         </div>
       </div>
     </div>
+
+    <script>
+    function desactiverChamp(id) {
+      $("#"+id).toggle();
+    }
+    </script>
+
   </body>
 </html>
