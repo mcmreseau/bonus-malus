@@ -7,11 +7,11 @@ include ("../repositories/etudiant.php");
   if(empty($_SESSION["user"])){
     header("location:login.php");
   }
-  if($_SESSION["role"]=="etudiant"){
+  if($_SESSION["role"]=="professeur"){
     $etudiant = new Etudiant();
     header('Location:accueil_etudiant.php');
   }
-  else if($_SESSION["role"]=="professeur"){
+  else if($_SESSION["role"]=="etudiant"){
     $prof=new Professeur();
     header('Location:accueil_prof.php');
   }

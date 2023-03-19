@@ -36,7 +36,7 @@
             <img
               aria-hidden="true"
               class="hidden object-cover w-full h-full dark:block"
-              src="assets/img/login-office-dark.jpeg"
+              src="assets/img/login-office.jpeg"
               alt="Office"
             />
           </div>
