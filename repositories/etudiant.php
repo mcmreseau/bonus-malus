@@ -24,8 +24,7 @@
             $req->execute([":id"=>$id_seance]);
             return $req->fetchAll();
         }
+
     }
-
-
 
 ?>
