@@ -1,15 +1,15 @@
 <?php
-//   if(empty($_SESSION["user"])){
-//    header("location:login.php");
-//  }
+  if(empty($_SESSION["user"])){
+    header("location:login.php");
+ }
 session_start();
 
 include_once("../repositories/etudiant.php");
 $etudRepo = new Etudiant();
 $a = 1;
-$mail = 'user1@example.com';
-$etudiant = $etudRepo->findByMail($mail);
-//$etudiant = $etudRepo->findByMail($_SESSION["user"]["mail"]);
+// $mail = 'user1@example.com';
+// $etudiant = $etudRepo->findByMail($mail);
+$etudiant = $etudRepo->findByMail($_SESSION["user"]["mail"]);
 
 ?>
 
