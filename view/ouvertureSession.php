@@ -55,7 +55,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
 
   } 
   else { //Si le formulaire est renvoyé sans aucune données
-                  header('Location:login.php?erreur=empty');
+                  header('Location : login.php');
           } 
 
 ?>

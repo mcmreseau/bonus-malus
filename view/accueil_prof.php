@@ -1,7 +1,7 @@
 <?php 
   session_start();
   if(empty($_SESSION["user"])){
-    header("location:login.php");
+    header("location:connect_sample.php");
   }
 
   include_once("../repositories/professeur.php");
@@ -78,7 +78,7 @@
                     ?>
                       <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <a class="w-full seance"><?=$it["nom_seance"] ?></a>
-                        <input type="hidden" value=<?=$it["id_seance"] ?>/>
+                        <input type="hidden" value="<?=$it["id_seance"] ?>"/>
                       </li>
                     <?php
                   }
@@ -121,7 +121,7 @@
                     ?>
                       <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <a class="w-full seance"><?=$it["nom_seance"] ?></a>
-                        <input type="hidden" value=<?=$it["id_seance"] ?> />
+                        <input type="hidden" value="<?=$it["id_seance"] ?>" />
                       </li>
                     <?php
                   }
@@ -176,6 +176,7 @@
           </li>
         </ul>
         <div class="px-6 my-6">
+           <!-- pk ce button? -->
           <button
             class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
             I3
@@ -296,178 +297,24 @@
               <div
                 class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                 <span class="flex items-center col-span-3">
-                  Showing 21-30 of 100
+                  Showing 21-30 of 100 
                 </span>
                 <span class="col-span-2"></span>
               </div>
               <table class="w-full whitespace-no-wrap">
+          <!-- Remplissage du tableau affichant la liste des étudiants -->
                 <thead>
                   <tr
                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3">Name</th>
+                    <th class="px-4 py-3">Id</th>
+                    <th class="px-4 py-3">Noms</th>
                     <th class="px-4 py-3">Score</th>
-                    <th class="px-4 py-3">Class</th>
-                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">Groupe</th>
+                    
                   </tr>
                 </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Hans Burger</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +1
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                      I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&facepad=3&fit=facearea&s=707b9c33066bf8808c934c8ab394dff6"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Jolina Angelie</p>
-                         
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +2
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                     I2
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1551069613-1904dbdcda11?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Sarah Curry</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +2
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                      I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1551006917-3b4c078c47c9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Rulia Joberts</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                     +2
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                      I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Wenzel Dashington</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +1
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                      I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
-
-
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center text-sm">
-                        <!-- Avatar with inset shadow -->
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                          <img class="object-cover w-full h-full rounded-full"
-                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                            alt="" loading="lazy" />
-                          <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                        </div>
-                        <div>
-                          <p class="font-semibold">Hans Burger</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      +1
-                    </td>
-                    <td class="px-4 py-3 text-xs">
-                     I1
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      6/10/2020
-                    </td>
-                  </tr>
+                <tbody id="cc" class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+             <!--Le remplissage sera fait en jquery-->
                 </tbody>
               </table>
             </div>
@@ -489,17 +336,53 @@
 <script >
   $(".seance").click(event=>{
     var id_seance = $(event.target).parent().find("input").val()
+    //L'execution se fait apres que le script aie fini de charger
     $.ajax({
       type: "POST",
       url: "etudiant_con.php",
       data: "id_seance="+id_seance,
+      dataType:"JSON",
       success: data => {
-        console.log(id_seance)
-        $("body").replaceWith(data)
-        console.log(data)
+        $('#cc').html("")
+        //console.log(data)
+        for(let etu of data){
+          
+          $('#cc').append(
+            //Modification des elements du tableau en jquery
+            `
+              <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="px-4 py-3 text-sm">
+                    ${etu.id_etudiant}
+                    </td>
+                    <td class="px-4 py-3">                       
+                          <p class="font-semibold">${etu.nom_etudiant}</p>
+                    </td>
+                    <td class="px-4 py-3 text-sm">
+                    <input class="note" type="text" value=${etu.note} />
+                    </td>
+                    <td class="px-4 py-3 text-xs">
+                    ${etu.nom_groupe}
+                    </td>
+                    
+              </tr>
+            `
+          )
+        }     
       }
-    });
+    })   
   })
+
+     $(".note").change(event=>{
+          let id_etudiant = parseInt($(event.target).parent().parent().children()[0].html())
+          let note = $(event.target).val()
+          $.post({
+            url:"traiter_bonus.php",
+            data: "id_s="+id_seance+"&id_etu="+id_etudiant+"&note="+note,
+        })
+
+
+
+      })
 </script>
 
 </html>

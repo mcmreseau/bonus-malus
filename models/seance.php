@@ -18,7 +18,6 @@
         public function __construct(int $id_seance, string $nom_seance, datetime $date_seance, int $id_groupe, int $id_matiere, int $id_prof) {
             $this->id_seance = $id_seance;
             $this->nom_seance = $nom_seance;
-            $this->date_seance = $date_seance;
             $this->id_groupe = $id_groupe;
             $this->id_matiere = $id_matiere;
             $this->id_prof = $id_prof;
@@ -56,21 +55,7 @@
             return $this;
         }
 
-        /**
-         * @return datetime
-         */
-        public function getDate_seance(): datetime {
-            return $this->date_seance;
-        }
-        
-        /**
-         * @param datetime $date_seance 
-         * @return self
-         */
-        public function setDate_seance(datetime $date_seance): self {
-            $this->date_seance = $date_seance;
-            return $this;
-        }
+      
 
         /**
          * @return int
