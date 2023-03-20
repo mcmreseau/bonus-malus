@@ -39,7 +39,7 @@
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                 </path>
               </svg>
-              <span class="ml-4">Dashboard</span>
+              <span class="ml-4">Accueil</span>
             </a>
           </li>
         </ul>
@@ -74,6 +74,7 @@
                 #Recuperation de la liste des séances
                   $seanceRepo = new SeanceRepo();
                   $seance = $seanceRepo->findSeanceNoActive($prof["id_prof"]);
+                
                   foreach($seance as $it){
                     ?>
                       <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
@@ -297,7 +298,7 @@
               <div
                 class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                 <span class="flex items-center col-span-3">
-                  Showing 21-30 
+                  Listes des etudiants
                 </span>
                 <span class="col-span-2"></span>
               </div>
@@ -380,10 +381,10 @@
       url: "etudiant_con.php",
       data: "id_seance="+id_seance,
       dataType:"JSON",
-      success: data => {
+      success: dta => {
         $('#cc').html("")
         //console.log(data)
-        for(let etu of data){
+        for(let etu of dta){
           
           $('#cc').append(
             //Modification des elements du tableau en jquery
