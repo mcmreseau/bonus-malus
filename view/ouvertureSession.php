@@ -5,6 +5,7 @@
          //Rôle 3 = Etudiant
 
 session_start(); //Demarrage de la session
+
 include('../db/connect.php') ;
 include('../repositories/identifiant.php'); // Récupération des fonctions de gestion de la base de données
 $erreur = "";
@@ -18,10 +19,10 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
         $email = strtolower($email); //email transformé en miniscule
 
         if (empty($email)) {
-                header('Location : login.php?erreur = Email is required');
+                header('Location: login.php?erreur = Email is required');
 
         }else if(empty($password)){
-                header('Location : login.php?erreur = Password is required');
+                header('Location: login.php?erreur = Password is required');
              
         }
 

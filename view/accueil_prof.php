@@ -1,7 +1,7 @@
 <?php 
   session_start();
   if(empty($_SESSION["user"])){
-    header("location:connect_sample.php");
+    header("location:login.php");
   }
 
   include_once("../repositories/professeur.php");
@@ -26,7 +26,7 @@
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
       <div class="py-4 text-gray-500 dark:text-gray-400">
-      <?=$prof["nom_prof"]?>
+      Bonjour <?=$prof["nom_prof"]?>,
         <ul class="mt-6">
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
@@ -39,7 +39,7 @@
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                 </path>
               </svg>
-              <span class="ml-4">Dashboard</span>
+              <span class="ml-4">Accueil</span>
             </a>
           </li>
         </ul>
@@ -248,8 +248,8 @@
               <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                 @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account" aria-haspopup="true">
                 <img class="object-cover w-8 h-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
-                  alt="" aria-hidden="true" />
+                  src="https://moodle.3il.fr/theme/image.php/adaptable/core/1675016996/u/f1"
+                alt="" aria-hidden="true" />
               </button>
               <template x-if="isProfileMenuOpen">
                 <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
@@ -297,7 +297,7 @@
               <div
                 class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                 <span class="flex items-center col-span-3">
-                  Showing 21-30 of 100 
+                  Listes des etudiants
                 </span>
                 <span class="col-span-2"></span>
               </div>
@@ -358,7 +358,7 @@
                           <p class="font-semibold">${etu.nom_etudiant}</p>
                     </td>
                     <td class="px-4 py-3 text-sm">
-                    <input class="note" type="text" value=${etu.note} />
+                    <p class="font-semibold">${etu.note} </p>
                     </td>
                     <td class="px-4 py-3 text-xs">
                     ${etu.nom_groupe}
@@ -380,10 +380,10 @@
       url: "etudiant_con.php",
       data: "id_seance="+id_seance,
       dataType:"JSON",
-      success: data => {
+      success: dta => {
         $('#cc').html("")
         //console.log(data)
-        for(let etu of data){
+        for(let etu of dta){
           
           $('#cc').append(
             //Modification des elements du tableau en jquery

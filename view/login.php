@@ -123,22 +123,22 @@
               </form>
 
 
-              <p class="mt-4">
+              <!-- <p class="mt-4">
                 <a
                   class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                   href="./forgot-password.php"
                 >
                   Forgot your password?
-                </a>
-              </p>
+                </a> -->
+               <!-- </p>
               <p class="mt-1">
                 <a
                   class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                   href="./create-account.php"
                 >
                   Create account
-                </a>
-              </p>
+                </a> -->
+              </p> 
             </div>
           </div>
         </div>

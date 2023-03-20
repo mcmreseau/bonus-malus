@@ -38,77 +38,75 @@ if (isset($_POST['etudiant'])) {
         $insertIdEtud = new Identifiant();
         $newUserIdEtud = $insertIdEtud->addId($tabIdEtud);
 
-        //Insersion dans la table etudiant
-        $tabEtud = [];
-        $tabEtud[] = $nom;
-        $tabEtud[] = $email;
-        $tabEtud[] = $groupe;
-
-        $insertEtud = new Etudiant();
-        $newUserEtud = $insertEtud->addEtudiant($tabEtud);
-
-        //Redirection avec le message de succès
-        header('Location:login.php?error=success');
-      } else {
-        header('Location:create-account.php?error=email');
+            //Insersion dans la table etudiant
+            $tabEtud=[];
+            $tabEtud[]=$nom;
+            $tabEtud[]=$email;
+            $tabEtud[]=$groupe;
+  
+            $insertEtud = new Etudiant();
+            $newUserEtud = $insertEtud->addEtudiant($tabEtud);
+            
+            //Redirection avec le message de succès
+            header('Location:dashboard_admin.php?error=success');
+          }else{
+            header('Location:create-account.php?error=email');
+          }
+        }else{
+          header('Location:create-account.php?error=already');
+        }
       }
-    } else {
-      header('Location:create-account.php?error=already');
     }
-  }
-}
+    
+    if(isset($_POST['professeur'])) {
+  
+      if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nom']) && !empty($_POST['prenom'])
+      && !empty($_POST['professeur'])) {
 
-if (isset($_POST['professeur'])) {
-  echo 'non';
-  if (
-    !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nom']) && !empty($_POST['prenom'])
-    && !empty($_POST['professeur'])
-  ) {
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $role = htmlspecialchars($_POST['professeur']);
+        $nom = htmlspecialchars($_POST['nom']);
+        $prenom = htmlspecialchars($_POST['prenom']);
+  
+        //Vérification si l'utilisateur existe déjà
+  
+        $identifiant = new Identifiant();
+        $check = $identifiant -> findByMail($email);
+  
+        $email = strtolower($email); //pour éviter de différencier les majuscules et les minuscules 
+  
+        if($check == false) {
+          if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+  
+            //Insertion dans la table Identifiant
+            $tabIdProf=[];
+            $tabIdProf[]=$email;
+            $tabIdProf[]=$password;
+            $tabIdProf[]=$role;
+  
+            $insertIdProf = new Identifiant();
+            $newUserIdProf = $insertIdProf->addId($tabIdProf);
 
-    $email = htmlspecialchars($_POST['email']);
-    $password = htmlspecialchars($_POST['password']);
-    $role = htmlspecialchars($_POST['professeur']);
-    $nom = htmlspecialchars($_POST['nom']);
-    $prenom = htmlspecialchars($_POST['prenom']);
-
-    //Vérification si l'utilisateur existe déjà
-
-    $identifiant = new Identifiant();
-    $check = $identifiant->findByMail($email);
-
-    $email = strtolower($email); //pour éviter de différencier les majuscules et les minuscules 
-
-    if ($check == false) {
-      if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-        //Insertion dans la table Identifiant
-        $tabIdProf = [];
-        $tabIdProf[] = $email;
-        $tabIdProf[] = $password;
-        $tabIdProf[] = $role;
-
-        $insertIdProf = new Identifiant();
-        $newUserIdProf = $insertIdProf->addId($tabIdProf);
-
-        //Insertion dans la table professeur
-        $tabProf = [];
-        $tabProf[] = $nom;
-        $tabProf[] = $prenom;
-        $tabProf[] = $email;
-
-        $insertProf = new Professeur();
-        $newUserProf = $insertProf->addProf($tabProf);
-
-        //Redirection avec le message de succès
-        header('Location:login.php?error=success');
-      } else {
-        header('Location:create-account.php?error=email');
+            //Insertion dans la table professeur
+            $tabProf=[];
+            $tabProf[]=$nom;
+            $tabProf[]=$prenom;
+            $tabProf[]=$email;
+  
+            $insertProf = new Professeur();
+            $newUserProf = $insertProf->addProf($tabProf);
+            
+            //Redirection avec le message de succès
+            header('Location:dashboard_admin.php?error=success');
+          }else{
+            header('Location:create-account.php?error=email');
+          }
+        }else{
+          header('Location:create-account.php?error=already');
+        }
       }
-    } else {
-      header('Location:create-account.php?error=already');
     }
-  }
-}
 
 ?>
 
@@ -170,18 +168,18 @@ if (isset($_POST['professeur'])) {
 
     <form action="create-account.php" method="POST">
 
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="professeur" value="professeur" onclick="desactiverChamp('groupe')">
-        <label class="form-check-label" for="flexRadioDefault1">
-          Professeur
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="etudiant" value="etudiant" onclick="desactiverChamp('prenom')">
-        <label class="form-check-label" for="flexRadioDefault2">
-          Etudiant
-        </label>
-      </div>
+          <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="professeur" value="professeur" onclick="desactiverChamp('groupe')">
+  <label class="form-check-label" for="professeur">
+    Professeur
+  </label>
+</div>
+<div class="form-check mt-2 form-check-inline">
+  <input class="form-check-input" type="radio" name="etudiant" value="etudiant" onclick="desactiverChamp('prenom')">
+  <label class="form-check-label" for="etudiant">
+    Etudiant
+  </label>
+</div>
 
       <label class="block mt-4 text-sm">
         <span class="text-gray-700 dark:text-gray-400">Email</span>
