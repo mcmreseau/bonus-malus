@@ -52,6 +52,7 @@
 
             if(isset($_GET['erreur'])) {
               $err = htmlspecialchars($_GET['erreur']);
+
               switch($err) {
                 case 'identifiant':
             ?>
@@ -80,6 +81,7 @@
               }
             }
         ?>
+
 
               <form action = "ouvertureSession.php" method="POST">
             

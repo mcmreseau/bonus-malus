@@ -18,7 +18,11 @@
         public function findMatiere($id_etud){
             $e = new etudiant();
             $e=$e->findById($id_etud);
-            $stmt="select groupe.id_groupe, etudiant.id_etudiant, etudiant.nom_etudiant, matiere.id_matiere, matiere.intitule from groupe join etudiant on groupe.id_groupe = etudiant.id_groupe join seance on groupe.id_groupe = seance.id_groupe join matiere on seance.id_matiere = matiere.id_matiere where etudiant.id_etudiant = :id ";
+            $stmt="select Groupe.id_groupe, Etudiant.id_etudiant, Etudiant.nom_etudiant, Matiere.id_matiere, Matiere.intitule
+             from Groupe join Etudiant on Groupe.id_groupe = Etudiant.id_groupe 
+             join Seance on Groupe.id_groupe = Seance.id_groupe 
+             join Matiere on Seance.id_matiere = Matiere.id_matiere 
+             where Etudiant.id_etudiant = :id ";
             $req = $this->con->prepare($stmt);
             $req->execute([":id"=>$e["id_groupe"]]);
             $res =  $req->fetchAll();
@@ -55,7 +59,10 @@
         }
 
         public function findMatBonusForEtud($id_mat, $id_etud  ){
-            $stmt  = "select bonus.id_etudiant,matiere.id_matiere, matiere.intitule, bonus.note, seance.date_seance from matiere left join seance on matiere.id_matiere = seance.id_matiere left join bonus on seance.id_seance = bonus.id_seance where matiere.id_matiere = :id_mat AND bonus.id_etudiant =:id_etud";
+            $stmt  = "select Bonus.id_etudiant,Matiere.id_matiere, Matiere.intitule, Bonus.note, Seance.date_seance
+             from Matiere left join Seance on Matiere.id_matiere = Seance.id_matiere 
+             left join Bonus on Seance.id_seance = Bonus.id_seance 
+             where Matiere.id_matiere = :id_mat AND Bonus.id_etudiant =:id_etud";
             // $stmt  = "select bonus.id_etudiant, matiere.intitule, SUM(bonus.note) as note , seance.date_seance from matiere left join seance on matiere.id_matiere = seance.id_matiere left join bonus on seance.id_seance = bonus.id_seance where bonus.id_etudiant = 3 group by matiere.id_matiere, matiere.intitule";
             // print_r($stmt);
             $req = $this->con->prepare($stmt);

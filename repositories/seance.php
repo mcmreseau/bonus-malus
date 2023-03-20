@@ -24,10 +24,11 @@
         }
 
         public function findAll() {
-            $req = "SELECT * FROM seance
-                    INNER JOIN groupe ON seance.id_groupe = groupe.id_groupe
-                    INNER JOIN matiere ON seance.id_matiere = matiere.id_matiere
-                    INNER JOIN professeur ON seance.id_prof = professeur.id_prof";
+            $req = "SELECT * FROM Seance
+                    INNER JOIN Groupe ON Seance.id_groupe = Groupe.id_groupe
+                    INNER JOIN Matiere ON Seance.id_matiere = Matiere.id_matiere
+                    INNER JOIN Professeur ON Seance.id_prof = Professeur.id_prof
+                    order by Seance.nom_seance asc";
             $stmt = $this->con->prepare($req);
             $stmt->execute();
             return $stmt->fetchAll();

@@ -36,7 +36,8 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
                 // si le mail est bon niveau format
                 if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         //si le mdp est bon 
-                        if(password_verify($password, $data['password'])) {
+                        // if(password_verify($password, $data['password'])) {
+                        if($password === $data["password"]) {
                                 //On crée la session et on dirige sur acceuil.php
                                 $_SESSION['user'] = $data['token'];
                                 header('Location: ./view/acceuil.php');

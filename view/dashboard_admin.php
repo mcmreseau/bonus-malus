@@ -106,7 +106,8 @@ $seanceRepo = new SeanceRepo();
         <div class="flex flex-col flex-1 w-full">
             <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
                 <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
-                    <button><a href="">Ajouter <?= $_GET["page"] ?></a></button>
+                    <button><a href="add_<?= $_GET['page'] ?>.php">Ajouter <?= $_GET["page"] ?></a></button>
+                    <button><a href="create-account.php">Ajouter un compte</a></button>
                     <ul class="flex items-center flex-shrink-0 space-x-6">
                         <!-- Theme toggler -->
                         <li class="flex">
