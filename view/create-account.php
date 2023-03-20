@@ -1,5 +1,6 @@
 <?php
   session_start();
+
   include('../repositories/identifiant.php');
   include('../repositories/professeur.php');
   include('../repositories/etudiant.php');
@@ -7,7 +8,7 @@
     $error = "";
 
     if(isset($_POST['etudiant'])){
-      echo 'oui';
+  
       if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['group']) && !empty($_POST['nom'])
       && !empty($_POST['etudiant'])) {
 
@@ -46,7 +47,7 @@
             $newUserEtud = $insertEtud->addEtudiant($tabEtud);
             
             //Redirection avec le message de succès
-            header('Location:login.php?error=success');
+            header('Location:dashboard_admin.php?error=success');
           }else{
             header('Location:create-account.php?error=email');
           }
@@ -57,7 +58,7 @@
     }
     
     if(isset($_POST['professeur'])) {
-      echo 'non';
+  
       if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nom']) && !empty($_POST['prenom'])
       && !empty($_POST['professeur'])) {
 
@@ -96,7 +97,7 @@
             $newUserProf = $insertProf->addProf($tabProf);
             
             //Redirection avec le message de succès
-            header('Location:login.php?error=success');
+            header('Location:dashboard_admin.php?error=success');
           }else{
             header('Location:create-account.php?error=email');
           }
@@ -186,15 +187,15 @@
 
           <form action = "create-account.php" method = "POST" >
 
-          <div class="form-check">
+          <div class="form-check form-check-inline">
   <input class="form-check-input" type="radio" name="professeur" value="professeur" onclick="desactiverChamp('groupe')">
-  <label class="form-check-label" for="flexRadioDefault1">
+  <label class="form-check-label" for="professeur">
     Professeur
   </label>
 </div>
-<div class="form-check">
+<div class="form-check mt-2 form-check-inline">
   <input class="form-check-input" type="radio" name="etudiant" value="etudiant" onclick="desactiverChamp('prenom')">
-  <label class="form-check-label" for="flexRadioDefault2">
+  <label class="form-check-label" for="etudiant">
     Etudiant
   </label>
 </div>
