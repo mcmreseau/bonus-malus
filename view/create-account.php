@@ -7,16 +7,16 @@
 
     $error = "";
 
-    if(isset($_POST['etudiant'])){
-  
+    if(isset($_POST['type'])){
+    if($_POST['type']=="2"){
       if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['group']) && !empty($_POST['nom'])
-      && !empty($_POST['etudiant'])) {
+      && !empty($_POST['type'])) {
 
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
         $groupe = htmlspecialchars($_POST['group']);
         $nom  = htmlspecialchars($_POST['nom']);
-        $role = htmlspecialchars($_POST['etudiant']);
+        $role = htmlspecialchars($_POST['type']);
 
         //Vérification si l'utilisateur existe déjà
   
@@ -56,15 +56,15 @@
         }
       }
     }
-    
-    if(isset($_POST['professeur'])) {
+    else if($_POST['type']=="1")
+    {
   
       if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nom']) && !empty($_POST['prenom'])
-      && !empty($_POST['professeur'])) {
+      && !empty($_POST['type'])) {
 
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
-        $role = htmlspecialchars($_POST['professeur']);
+        $role = htmlspecialchars($_POST['type']);
         $nom = htmlspecialchars($_POST['nom']);
         $prenom = htmlspecialchars($_POST['prenom']);
   
@@ -106,6 +106,7 @@
         }
       }
     }
+  }
 
 ?>
 
@@ -184,17 +185,18 @@
                     }
                   }
               ?>
+              
 
           <form action = "create-account.php" method = "POST" >
 
           <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="professeur" value="professeur" onclick="desactiverChamp('groupe')">
+  <input class="form-check-input" type="radio" name="type" value="1" onclick="desactiverChamp('groupe')">
   <label class="form-check-label" for="professeur">
     Professeur
   </label>
 </div>
 <div class="form-check mt-2 form-check-inline">
-  <input class="form-check-input" type="radio" name="etudiant" value="etudiant" onclick="desactiverChamp('prenom')">
+  <input class="form-check-input" type="radio" name="type" value="2" onclick="desactiverChamp('prenom')">
   <label class="form-check-label" for="etudiant">
     Etudiant
   </label>

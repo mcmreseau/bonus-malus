@@ -5,7 +5,7 @@
     session_start();
     $err = "";
     if(isset($_POST["connex"])){
-        //echo password_hash("Bangkok",PASSWORD_DEFAULT);
+        //echo password_hash("admin2",PASSWORD_DEFAULT);
         if(!empty($_POST["login"]) && !empty($_POST["password"])){
             $log = htmlspecialchars($_POST["login"]);
             $pass = htmlspecialchars($_POST["password"]);
