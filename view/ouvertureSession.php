@@ -11,6 +11,7 @@ $erreur = "";
 
 if(!empty($_POST['email']) && !empty($_POST['password'])) {
 
+        echo (password_hash("admin2",PASSWORD_DEFAULT));
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
 
@@ -35,7 +36,8 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
           // si le mail est bon niveau format
           if(filter_var($email, FILTER_VALIDATE_EMAIL) && $email==$check["mail"]) {
                   //si le mdp est bon 
-                  if(password_verify($password,$check['mdp'])) {
+                  if($password === $check=["mdp"]) {
+                //   if(password_verify($password,$check['mdp'])) {
                           //On crée la session et on dirige sur acceuil.php
                          // $_SESSION['user'] = $data['token'];
                          // $user["password"] = "";

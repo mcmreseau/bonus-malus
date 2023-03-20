@@ -24,7 +24,7 @@
         }
 
         public function findAll() {
-            $req = "SELECT * FROM groupe";
+            $req = "SELECT * FROM Groupe";
             $stmt = $this->con->prepare($req);
             $stmt->execute();
             return $stmt->fetchAll();

@@ -10,7 +10,7 @@
   else if($_SESSION["role"]=="professeur"){
     header('Location:accueil_prof.php');
   }
-  else if($_SESSION["role"]=="administrateur"){
+  else if($_SESSION["role"]=="3"){
     header('Location:dashboard_admin.php');
   }
 ?>
